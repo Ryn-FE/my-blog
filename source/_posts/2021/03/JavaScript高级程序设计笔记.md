@@ -55,3 +55,37 @@ categories: 红宝书
 
 简单数据类型：null，undefined，number，string，boolean，Symbol
 复杂类型：object
+
+typeof是一个操作符而不是一个函数。
+
+```JavaScript
+typeof null // 'object null值表示一个空对象指针'
+typeof function // 'function'
+typeof {} // 'object'
+```
+
+对于未声明或者未初始化的变量，只能对它执行一个操作就是typeof，总是会返回undefined。所以在做对应的声明的同时也要对应的对其做出初始化的操作，这样在使用typeof的时候就知道到底是未声明还是未初始化
+
+undefined是由null派生来的，因此其表面上相等。所以null == undefined为true，任何时候只要是保存对象，而其又没有对应的值，就将其初始值设置为null，这样能够和undefined区分开
+
+可以用Boolean()方法将其余的所有类型转换成boolean类型
+
+```JavaScript
+Boolean(NaN) // false
+```
+
+对于数字的一些说明
+
+- 八进制：第一个数字为0并且后续的数字为0～7，如果后续的数字不为0-7，则会忽略之前的0，es6的八进制的数字前缀为0o
+- 十六进制：数值前缀为0x，然后是十六进制的数字，0-9 A-F/a-f
+- 当其用作数学操作中的时候，则都会被视为10进制数值
+- 科学计数法：1.3e10表示1.3乘以10的10次幂，ECMAScript会将小数点后至少包含6个0的数字转成科学计数法的形式
+- 值的范围：最小值Number.MIN_VALUE（5e-324）最大值Number.MAX_VALUE（1.797 693 134 862 315 7e+308）如果某个计算数值超过了MAX_VALUE，那么这个数值会被自动转换成Infinity（无
+穷），Infinity不可用于任何计算
+- 如何确定某个值是否有限大，使用isFinite()函数，Number.NEGATIVE_INFINITY 和 Number.POSITIVE_INFINITY 也可以获取正、负 Infinity
+- NAN表示本来要返回数值的操作失败了，0/0便会返回NAN，NAN不等于包括NAN在内的任何值。NAN == NAN为false，任何涉及NAN的计算都会返回NAN，isNaN()函数可以判断一个参数是不是数字，注意isNaN('10')为true，因为其可以转换成数字
+- isNaN可用来测试对象，此时首先会调用valueOf()，看其返回值是否是数字，否则再调用toString()，测试其返回值
+
+```JavaScript
+
+```
