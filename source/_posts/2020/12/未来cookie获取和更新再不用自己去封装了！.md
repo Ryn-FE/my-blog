@@ -115,6 +115,19 @@ cookieStore.addEventListener('change', event => {
 })
 ```
 
+## cookie有哪些属性
+
+平时的cookie获取可以使用document.cookie进行获取，是由键值对组成，一个;号和一个空格隔开。但是这个方法只能获取非HttpOnly类型的cookie
+
+设置cookie属性的时候，也是由一个分号和一个空格隔开
+
+- expires：设置cookie有效期，必须是GMT格式时间，可通过new Date().toGMTString()来获得，如果没有设置时间，那么是会话级cookie，浏览器关闭，cookie消失。http/1.1中由Max age代替，有效期为创建时间加Max age
+- domain 域名，子域名
+- path 路径，子路径 跨域请求满足但是cookie也不会自动被添加
+- size cookie的大小
+- secure cookie只有在确保安全的请求才会发送，当请求是https或者其他安全协议的时候，包含这个选项的cookie才会被发送，默认这个选项为空，所以任何请求都会携带。如果想要设置这个值，必须确保网页是https协议的才能够去设置
+- HttpOnly 设置cookie是否能够通过js访问，有这个选项的表示客户端无法通过js代码去读取，修改，以及删除的操作。而且这个选项是不能通过js修改的，必须服务端才能够设置这个相关的值。并且document.cookie也是获取不到有这个属性的cookie内容的
+
 ## 总结
 
 针对以上，似乎chrome团队已经解决了我们的对于cookie的问题，并且这些内容在我们认为理所应当应该存在的东西，但是还是能够希望大家能够很好的去使用，有机会体验一次如果你的项目中有需求的话。

@@ -74,7 +74,7 @@ undefined是由null派生来的，因此其表面上相等。所以null == undef
 Boolean(NaN) // false
 ```
 
-对于数字的一些说明
+#### 数字
 
 - 八进制：第一个数字为0并且后续的数字为0～7，如果后续的数字不为0-7，则会忽略之前的0，es6的八进制的数字前缀为0o
 - 十六进制：数值前缀为0x，然后是十六进制的数字，0-9 A-F/a-f
@@ -85,7 +85,27 @@ Boolean(NaN) // false
 - 如何确定某个值是否有限大，使用isFinite()函数，Number.NEGATIVE_INFINITY 和 Number.POSITIVE_INFINITY 也可以获取正、负 Infinity
 - NAN表示本来要返回数值的操作失败了，0/0便会返回NAN，NAN不等于包括NAN在内的任何值。NAN == NAN为false，任何涉及NAN的计算都会返回NAN，isNaN()函数可以判断一个参数是不是数字，注意isNaN('10')为true，因为其可以转换成数字
 - isNaN可用来测试对象，此时首先会调用valueOf()，看其返回值是否是数字，否则再调用toString()，测试其返回值
+- 将非数值转换成数值方式：Number、parseInt、parseFloat，Number可以用于任何数据类型，但是后面两个主要用于将字符串转换成数值
+  - Number可以将true以及false转换成数值，null返回0，undefined返回NaN，字符串转成数字，空字符串返回0，否则返回NaN。对象来说先调用valueOf的方法，按照上述规则进行转换。如果是NaN则调用toString的方式进行转换
+  - parseInt会从第一个非空格字符开始转换，如果第一个字符不是数字字符，加减号，立即返回NaN，所以空字符串也会是NaN，但是'1234blue'会返回1234，后续不是数字的字符会被忽略，类似22.5会被转换成22，其第二个参数是要解析的字符的进制数
+  - parseFloat会忽略字符串开头的0，十六进制数值始终返回0.parseFloat只解析十进制，不能指定底数，字符串表示整数，它会返回整数
 
-```JavaScript
-console.log(1)
-```
+#### 字符串
+
+字符字面量
+
+- \n 换行
+- \t 制表
+- \b 退格
+- \r 回车
+- \f 换页
+- \\ 反斜杠
+- \' 单引号
+- \" 双引号
+- \` 反引号
+- \xnn 以十六进制编码nn表示的字符
+- \unnnn 以十六进制编码nnnn表示的Unicode字符
+
+转义序列表示一个字符，如果字符包含双字节字符，那么length属性返回的可能是不准确的字符数
+
+转换成字符串可使用toString方法，null和undefined没有toString方法，toString可以穿入一个参数，表示得到数值的哪种进制字符串。如果你不确定一个值是不是
